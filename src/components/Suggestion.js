@@ -1,13 +1,13 @@
-import Component from "../core/Component.js";
+import Component from '@/core/Component';
 
 export default class Suggestion extends Component {
   render() {
-    const { suggestionList } = this.state;
+    const {suggestionList} = this.state;
 
     if (suggestionList.length === 0) {
-      document.querySelector(".Suggestion").style.visibility = "hidden";
+      document.querySelector('.Suggestion').style.visibility = 'hidden';
     } else {
-      document.querySelector(".Suggestion").style.visibility = "visible";
+      document.querySelector('.Suggestion').style.visibility = 'visible';
     }
 
     this.target.innerHTML = `
@@ -20,21 +20,21 @@ export default class Suggestion extends Component {
             )}" data-id="${index}">${this.highlightKeyword(item)}</li>
           `
           )
-          .join("")}
+          .join('')}
       </ul>
     `;
   }
 
   addSelectedClass(index) {
-    const { selectedIndex } = this.state;
-    if (index === selectedIndex) return "Suggestion__item--selected";
-    return "";
+    const {selectedIndex} = this.state;
+    if (index === selectedIndex) return 'Suggestion__item--selected';
+    return '';
   }
 
   highlightKeyword(item) {
-    const { getInputValue } = this.state;
+    const {getInputValue} = this.state;
     const inputValue = getInputValue();
-    const regex = new RegExp(`(${inputValue})`, "gi");
+    const regex = new RegExp(`(${inputValue})`, 'gi');
 
     return item.replace(
       regex,
@@ -44,21 +44,21 @@ export default class Suggestion extends Component {
 
   mounted() {
     const keyUpHandler = this.handleListSelect.bind(this);
-    document.addEventListener("keyup", keyUpHandler);
+    document.addEventListener('keyup', keyUpHandler);
   }
 
   handleListSelect(e) {
-    const { suggestionList, selectedIndex, setSelectedIndex, setSelectedList } =
+    const {suggestionList, selectedIndex, setSelectedIndex, setSelectedList} =
       this.state;
 
     switch (e.key) {
-      case "ArrowDown":
+      case 'ArrowDown':
         setSelectedIndex(this.moveSelectedIndex(selectedIndex + 1));
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         setSelectedIndex(this.moveSelectedIndex(selectedIndex - 1));
         break;
-      case "Enter":
+      case 'Enter':
         const selectedValue = suggestionList[selectedIndex];
         alert(selectedValue);
         setSelectedList(selectedValue);
@@ -69,15 +69,15 @@ export default class Suggestion extends Component {
 
   setEvent() {
     this.addEvent({
-      eventType: "click",
-      selector: "ul",
+      eventType: 'click',
+      selector: 'ul',
       callback: this.handleListClick,
     });
   }
 
   handleListClick(e) {
-    const { textContent: keyword, dataset } = e.target;
-    const { setSelectedIndex, setSelectedList } = this.state;
+    const {textContent: keyword, dataset} = e.target;
+    const {setSelectedIndex, setSelectedList} = this.state;
     const selectedIndex = Number(dataset.id);
     alert(keyword);
     setSelectedIndex(selectedIndex);
@@ -85,7 +85,7 @@ export default class Suggestion extends Component {
   }
 
   moveSelectedIndex(movedIndex) {
-    const { suggestionList } = this.state;
+    const {suggestionList} = this.state;
     const suggestionListLength = suggestionList.length;
 
     switch (movedIndex) {

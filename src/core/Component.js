@@ -13,11 +13,11 @@ export default class Component {
   setEvent() {}
   mounted() {}
 
-  addEvent({ eventType, selector, callback }) {
+  addEvent({eventType, selector, callback}) {
     const element = this.target.querySelector(selector);
-    const isTarget = (target) => target.closest(selector);
+    const isTarget = target => target.closest(selector);
 
-    element.addEventListener(eventType, (event) => {
+    element.addEventListener(eventType, event => {
       if (!isTarget(event.target)) return;
       callback.call(this, event);
     });

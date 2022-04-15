@@ -1,5 +1,5 @@
-import Component from "../core/Component.js";
-import { api } from "../apis/fetch.js";
+import Component from '@/core/Component';
+import {api} from '@/apis/fetch';
 
 export default class SearchInput extends Component {
   render() {
@@ -7,18 +7,18 @@ export default class SearchInput extends Component {
       <input class="SearchInput__input" type="text" placeholder="프로그램 언어를 입력하세요." value="${this.state.inputValue}"/>
     `;
 
-    const inputElement = this.target.querySelector(".SearchInput__input");
+    const inputElement = this.target.querySelector('.SearchInput__input');
     const inputLength = this.state.inputValue.length;
     inputElement.focus();
     inputElement.setSelectionRange(inputLength, inputLength);
   }
 
   setEvent() {
-    const { debounce, handleInputChange } = this;
+    const {debounce, handleInputChange} = this;
 
     this.addEvent({
-      eventType: "input",
-      selector: ".SearchInput__input",
+      eventType: 'input',
+      selector: '.SearchInput__input',
       callback: debounce(handleInputChange.bind(this)),
     });
   }
@@ -42,7 +42,7 @@ export default class SearchInput extends Component {
     const response = await api.fetchLanguages(keyword);
 
     if (response.isError) {
-      alert("Error");
+      alert('Error');
       return;
     }
 
