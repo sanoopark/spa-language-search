@@ -22,7 +22,7 @@ export default class App extends Component {
     } = this;
 
     this.searchInput = new SearchInput($searchInput, {
-      inputValue: localStorage.get('inputValue') ?? '',
+      inputValue: localStorage.get({key: 'inputValue'}) ?? '',
       setInputValue: setInputValue.bind(this),
       setSuggestionList: setSuggestionList.bind(this),
       removeSuggestionList: removeSuggestionList.bind(this),
@@ -30,12 +30,12 @@ export default class App extends Component {
     });
 
     this.selectedLanguage = new SelectedLanguage($selectedLanguage, {
-      selectedList: localStorage.get('selectedList') ?? [],
+      selectedList: localStorage.get({key: 'selectedList'}) ?? [],
     });
 
     this.suggestion = new Suggestion($suggestion, {
-      suggestionList: localStorage.get('suggestionList') ?? [],
-      selectedIndex: localStorage.get('selectedIndex') ?? 0,
+      suggestionList: localStorage.get({key: 'suggestionList'}) ?? [],
+      selectedIndex: localStorage.get({key: 'selectedIndex'}) ?? 0,
       getInputValue: getInputValue.bind(this),
       setInputValue: setInputValue.bind(this),
       setSelectedIndex: setSelectedIndex.bind(this),
@@ -49,22 +49,22 @@ export default class App extends Component {
 
   setInputValue(value) {
     this.searchInput.setState({inputValue: value});
-    localStorage.set('inputValue', value);
+    localStorage.set({key: 'inputValue', value});
   }
 
   setSuggestionList(items) {
     this.suggestion.setState({suggestionList: items});
-    localStorage.set('suggestionList', items);
+    localStorage.set({key: 'suggestionList', value: items});
   }
 
   removeSuggestionList() {
     this.suggestion.setState({suggestionList: []});
-    localStorage.set('suggestionList', []);
+    localStorage.set({key: 'suggestionList', value: []});
   }
 
   setSelectedIndex(index) {
     this.suggestion.setState({selectedIndex: index});
-    localStorage.set('selectedIndex', index);
+    localStorage.set({key: 'selectedIndex', value: index});
   }
 
   setSelectedList(value) {
@@ -93,6 +93,9 @@ export default class App extends Component {
     };
 
     setSelectedLanguage(value);
-    localStorage.set('selectedList', this.selectedLanguage.state.selectedList);
+    localStorage.set({
+      key: 'selectedList',
+      value: this.selectedLanguage.state.selectedList,
+    });
   }
 }
