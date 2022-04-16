@@ -22,7 +22,7 @@ export default class App extends Component {
     } = this;
 
     this.searchInput = new SearchInput($searchInput, {
-      inputValue: localStorage.get('inputValue') || '',
+      inputValue: localStorage.get('inputValue') ?? '',
       setInputValue: setInputValue.bind(this),
       setSuggestionList: setSuggestionList.bind(this),
       removeSuggestionList: removeSuggestionList.bind(this),
@@ -30,12 +30,12 @@ export default class App extends Component {
     });
 
     this.selectedLanguage = new SelectedLanguage($selectedLanguage, {
-      selectedList: localStorage.get('selectedList') || [],
+      selectedList: localStorage.get('selectedList') ?? [],
     });
 
     this.suggestion = new Suggestion($suggestion, {
-      suggestionList: localStorage.get('suggestionList') || [],
-      selectedIndex: localStorage.get('selectedIndex') || 0,
+      suggestionList: localStorage.get('suggestionList') ?? [],
+      selectedIndex: localStorage.get('selectedIndex') ?? 0,
       getInputValue: getInputValue.bind(this),
       setInputValue: setInputValue.bind(this),
       setSelectedIndex: setSelectedIndex.bind(this),
