@@ -1,8 +1,16 @@
 const cache = {};
 
-const request = async (url) => {
+const request = async (url, timeout = 5000) => {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      signal: controller.signal,
+    });
+
+    clearTimeout(id);
+
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -19,7 +27,7 @@ const request = async (url) => {
 };
 
 export const api = {
-  fetchLanguages: async (keyword) => {
+  fetchLanguages: async keyword => {
     if (cache[keyword]) {
       return {
         isError: false,
